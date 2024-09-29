@@ -1,0 +1,13 @@
+query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {
+  Page(perPage: $perPage, page: $page) {
+    mediaList(type: $type) {
+      id
+      score
+      media {
+        title {
+          english
+        }
+      }
+    }
+  }
+}

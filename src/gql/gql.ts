@@ -13,7 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-    "query animes($page: Int, $perPage: Int) {\n  Page(perPage: 20) {\n    mediaList(type: ANIME) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}": types.AnimesDocument,
+  'query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n  Page(perPage: $perPage, page: $page) {\n    mediaList(type: $type) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}':
+    types.MediaListDocument,
 };
 
 /**
@@ -33,10 +34,13 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query animes($page: Int, $perPage: Int) {\n  Page(perPage: 20) {\n    mediaList(type: ANIME) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}"): (typeof documents)["query animes($page: Int, $perPage: Int) {\n  Page(perPage: 20) {\n    mediaList(type: ANIME) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}"];
+export function graphql(
+  source: 'query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n  Page(perPage: $perPage, page: $page) {\n    mediaList(type: $type) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}'
+): (typeof documents)['query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n  Page(perPage: $perPage, page: $page) {\n    mediaList(type: $type) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}'];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
+  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
