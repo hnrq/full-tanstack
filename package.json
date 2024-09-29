@@ -7,17 +7,22 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "codegen": "gql-gen --config codegen.ts"
   },
   "dependencies": {
     "@tanstack/react-form": "^0.33.0",
     "@tanstack/react-query": "^5.56.2",
     "@tanstack/react-router": "^1.58.15",
+    "graphql": "^16.9.0",
+    "graphql-request": "^7.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
+    "@graphql-codegen/cli": "^5.0.2",
+    "@parcel/watcher": "^2.4.1",
     "@tanstack/router-devtools": "^1.58.15",
     "@tanstack/router-plugin": "^1.58.12",
     "@types/react": "^18.3.3",
@@ -27,8 +32,10 @@
     "eslint-plugin-react-hooks": "^5.1.0-rc.0",
     "eslint-plugin-react-refresh": "^0.4.9",
     "globals": "^15.9.0",
+    "graphql-codegen-typescript-client": "0.18.2",
+    "graphql-codegen-typescript-common": "0.18.2",
     "prettier": "^3.3.3",
-    "typescript": "^5.5.3",
+    "typescript": "^5.6.2",
     "typescript-eslint": "^8.0.1",
     "vite": "^5.4.1"
   }
