@@ -1,6 +1,6 @@
 /* eslint-disable */
 import * as types from './graphql';
-import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
+import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/core';
 
 /**
  * Map of all GraphQL operations in the project.
@@ -13,8 +13,8 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
-  'query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n  Page(perPage: $perPage, page: $page) {\n    mediaList(type: $type) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}':
-    types.MediaListDocument,
+    "\n  fragment MediaListItem on MediaList {\n    id\n    score\n    media {\n      title {\n        english\n      }\n      coverImage {\n        medium\n      }\n    }\n  }\n": types.MediaListItemFragmentDoc,
+    "\n  query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n    Page(perPage: $perPage, page: $page) {\n      mediaList(type: $type) {\n        ...MediaListItem\n      }\n    }\n  }\n": types.MediaListDocument,
 };
 
 /**
@@ -34,13 +34,14 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(
-  source: 'query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n  Page(perPage: $perPage, page: $page) {\n    mediaList(type: $type) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}'
-): (typeof documents)['query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n  Page(perPage: $perPage, page: $page) {\n    mediaList(type: $type) {\n      id\n      score\n      media {\n        title {\n          english\n        }\n      }\n    }\n  }\n}'];
+export function graphql(source: "\n  fragment MediaListItem on MediaList {\n    id\n    score\n    media {\n      title {\n        english\n      }\n      coverImage {\n        medium\n      }\n    }\n  }\n"): (typeof documents)["\n  fragment MediaListItem on MediaList {\n    id\n    score\n    media {\n      title {\n        english\n      }\n      coverImage {\n        medium\n      }\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n    Page(perPage: $perPage, page: $page) {\n      mediaList(type: $type) {\n        ...MediaListItem\n      }\n    }\n  }\n"): (typeof documents)["\n  query mediaList($type: MediaType, $page: Int, $perPage: Int = 20) {\n    Page(perPage: $perPage, page: $page) {\n      mediaList(type: $type) {\n        ...MediaListItem\n      }\n    }\n  }\n"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
 }
 
-export type DocumentType<TDocumentNode extends DocumentNode<any, any>> =
-  TDocumentNode extends DocumentNode<infer TType, any> ? TType : never;
+export type DocumentType<TDocumentNode extends DocumentNode<any, any>> = TDocumentNode extends DocumentNode<  infer TType,  any>  ? TType  : never;

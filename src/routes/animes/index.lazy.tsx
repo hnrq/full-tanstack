@@ -1,22 +1,29 @@
 import { useQuery } from '@tanstack/react-query';
 import { createLazyFileRoute } from '@tanstack/react-router';
 import { gqlClient } from '@operations/client';
-import { MediaListDocument, MediaType } from 'gql/graphql';
-import Tile from '@components/Tile';
+import { MediaListQuery, MediaType } from 'gql/graphql';
+import MediaListItem from '@components/MediaListItem';
+import mediaListQueryDocument from '@operations/queries/mediaListQueryDocument';
 
 const Anime = () => {
   const { data } = useQuery({
     queryKey: ['anime'],
-    queryFn: () =>
-      gqlClient.request(MediaListDocument, { type: MediaType.Anime, page: 0 }),
+    queryFn: async () =>
+      gqlClient.request<MediaListQuery>(mediaListQueryDocument, {
+        type: MediaType.Anime,
+        page: 0,
+      }),
   });
 
   return (
     <>
       <h1>Animes</h1>
-      {data.map((anime) => (
-        <Tile key={anime.id} title={''} subtitle={''} image={''} />
-      ))}
+      {data?.Page?.mediaList?.map(
+        (mediaList) =>
+          mediaList !== null && (
+            <MediaListItem mediaList={mediaList} key={mediaList?.id} />
+          )
+      )}
     </>
   );
 };

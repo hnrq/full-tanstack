@@ -16,7 +16,7 @@ export const Route = createRootRouteWithContext<{
           Home
         </Link>{' '}
         <Link to="/animes" className="[&.active]:font-bold">
-          About
+          Animes
         </Link>
       </div>
       <hr />
