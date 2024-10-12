@@ -11,6 +11,7 @@ import type { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-
  * 3. It does not support dead code elimination, so it will add unused operations.
  *
  * Therefore it is highly recommended to use the babel or swc plugin for production.
+ * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 const documents = {
     "\n  fragment MediaListItem on MediaList {\n    id\n    score\n    media {\n      title {\n        english\n      }\n      coverImage {\n        medium\n      }\n    }\n  }\n": types.MediaListItemFragmentDoc,

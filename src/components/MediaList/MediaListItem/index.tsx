@@ -26,13 +26,15 @@ const MediaListItem: React.FC<MediaListItemProps> = ({ mediaList }) => {
     mediaList
   );
   return (
-    <div className="media-list">
+    <div className="media-list-item">
       <img
         src={media?.coverImage?.medium ?? ''}
-        className="media-list__image"
+        className="media-list-item__image"
       />
-      <h1 className="media-list__title">{media?.title?.english}</h1>
-      <h2 className="media-list__subtitle">{score}</h2>
+      <div>
+        <h4 className="media-list-item__title">{media?.title?.english}</h4>
+        <span className="media-list-item__subtitle">{score}</span>
+      </div>
     </div>
   );
 };
